@@ -1,2 +1,0 @@
-# djazair-vs-extension
-
