@@ -1,0 +1,59 @@
+{
+  "Function": {
+    "prefix": "fn",
+    "body": [
+      "fn ${1:name}(${2:args}):",
+      "\t${3:// body}",
+      "end"
+    ]
+  },
+  "Class": {
+    "prefix": "class",
+    "body": [
+      "class ${1:ClassName}:",
+      "\tfn init(${2:args}):",
+      "\t\t${3:// init body}",
+      "\tend",
+      "end"
+    ]
+  },
+  "If Elif Else": {
+    "prefix": "if",
+    "body": [
+      "if ${1:condition}:",
+      "\t${2:body}",
+      "elif ${3:condition}:",
+      "\t${4:body}",
+      "else:",
+      "\t${5:body}",
+      "end"
+    ]
+  },
+  "Match Case": {
+    "prefix": "match",
+    "body": [
+      "match ${1:value}:",
+      "\tcase ${2:Option1}:",
+      "\t\t${3:// code}",
+      "\tcase ${4:Option2}:",
+      "\t\t${5:// code}",
+      "\tdefault:",
+      "\t\t${6:// default}",
+      "end"
+    ]
+  },
+  "For Loop": {
+    "prefix": "for",
+    "body": [
+      "for ${1:item} in ${2:iterable}:",
+      "\t${3:// body}",
+      "end"
+    ]
+  },
+  "Variable": {
+    "prefix": "var",
+    "body": [
+      "var ${1:name} = ${2:value}"
+    ]
+  }
+}

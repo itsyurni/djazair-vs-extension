@@ -1,0 +1,165 @@
+{
+  "scopeName": "source.djazair",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#multilineStrings" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#keywords" },
+    { "include": "#operators" },
+    { "include": "#functions" },
+    { "include": "#classes" },
+    { "include": "#enum_values" },
+    { "include": "#objectAccess" },
+    { "include": "#importPaths" },
+    { "include": "#class_fields" }
+  ],
+
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.djazair",
+          "begin": "#\\*",
+          "end": "\\*#",
+          "patterns": [
+            { "match": "[\\s\\S]+?", "name": "comment.block.content.djazair" }
+          ]
+        },
+        {
+          "name": "comment.line.djazair",
+          "match": "#.*$"
+        }
+      ]
+    },
+
+    "multilineStrings": {
+      "patterns": [
+        {
+          "name": "string.quoted.triple.djazair",
+          "begin": "\"\"\"",
+          "end": "\"\"\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.djazair",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.djazair",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.djazair",
+              "match": "\\\\(n|t|r|\"|')"
+            }
+          ]
+        }
+      ]
+    },
+
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.hex.djazair",
+          "match": "\\b0x[0-9A-Fa-f]+\\b"
+        },
+        {
+          "name": "constant.numeric.binary.djazair",
+          "match": "\\b0b[01]+\\b"
+        },
+        {
+          "name": "constant.numeric.float.djazair",
+          "match": "\\b[-+]?[0-9]*\\.[0-9]+([eE][-+]?[0-9]+)?\\b"
+        },
+        {
+          "name": "constant.numeric.integer.djazair",
+          "match": "\\b[-+]?[0-9]+\\b"
+        }
+      ]
+    },
+
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.djazair",
+          "match": "\\b(var|const|import|as|fn|class|super|extends|new|return|if|elif|else|for|in|end|while|do|True|False|Null|break|continue|self|match|enum|default|case|delete|is|not|and|or)\\b"
+        }
+      ]
+    },
+
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.djazair",
+          "match": "\\+=|-=|\\*=|/=|==|!=|<=|>=|=>|=|\\+|-|\\*|/|\\?|:|\\."
+        }
+      ]
+    },
+
+    "functions": {
+      "patterns": [
+        {
+          "name": "entity.name.function.djazair",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*(?=\\()"
+        }
+      ]
+    },
+
+    "classes": {
+      "patterns": [
+        {
+          "name": "entity.name.class.djazair",
+          "match": "(?<=class\\s)[A-Za-z_][A-Za-z0-9_]*"
+        }
+      ]
+    },
+
+    "class_fields": {
+      "patterns": [
+        {
+          "name": "variable.member.djazair",
+          "match": "(?<=\\b(private|public|var)\\s+)[A-Za-z_][A-Za-z0-9_]*"
+        }
+      ]
+    },
+
+    "enum_values": {
+      "patterns": [
+        {
+          "name": "constant.enum.djazair",
+          "match": "(?<=enum\\s+[A-Za-z_][A-Za-z0-9_]*:\\s*)[A-Za-z_][A-Za-z0-9_]*"
+        },
+        {
+          "name": "constant.enum.djazair",
+          "match": "(?<=case\\s)[A-Za-z_][A-Za-z0-9_]*"
+        }
+      ]
+    },
+
+    "objectAccess": {
+      "patterns": [
+        {
+          "name": "variable.other.property.djazair",
+          "match": "(?<=\\.)[A-Za-z_][A-Za-z0-9_]*"
+        }
+      ]
+    },
+
+    "importPaths": {
+      "patterns": [
+        {
+          "name": "string.quoted.import-path.djazair",
+          "match": "(?<=import\\s)\"[^\"]+\""
+        }
+      ]
+    }
+  }
+}

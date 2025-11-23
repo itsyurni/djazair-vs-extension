@@ -1,0 +1,37 @@
+{
+  "name": "djazair",
+  "displayName": "Djazair Language",
+  "description": "Syntax highlighting and support for the Djazair programming language.",
+  "version": "0.0.1",
+  "publisher": "djazair-lang",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": ["Programming Languages"],
+  
+  "contributes": {
+    "languages": [
+      {
+        "id": "djazair",
+        "aliases": ["Djazair", "djazair"],
+        "extensions": [".dz"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+
+    "grammars": [
+      {
+        "language": "djazair",
+        "scopeName": "source.djazair",
+        "path": "./syntaxes/djazair.tmLanguage.json"
+      }
+    ],
+
+    "snippets": [
+      {
+        "language": "djazair",
+        "path": "./snippets/djazair.json"
+      }
+    ]
+  }
+}
