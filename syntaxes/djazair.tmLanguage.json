@@ -90,7 +90,7 @@
       "patterns": [
         {
           "name": "keyword.control.djazair",
-          "match": "\\b(var|const|import|as|fn|class|super|extends|new|return|if|elif|else|for|in|end|while|do|True|False|Null|break|continue|self|match|enum|default|case|delete|is|not|and|or)\\b"
+          "match": "\\b(var|const|try|catch|throw|import|as|fn|class|super|extends|new|return|if|elif|else|for|in|end|while|do|True|False|Null|break|continue|self|match|enum|default|case|delete|is|not|and|or)\\b"
         }
       ]
     },
