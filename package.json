@@ -1,14 +1,20 @@
 {
   "name": "djazair",
   "displayName": "Djazair Language",
-  "description": "Syntax highlighting and support for the Djazair programming language.",
-  "version": "0.0.1",
+  "description": "Syntax highlighting, formatting, and support for the Djazair programming language.",
+  "version": "0.1.0",
   "publisher": "djazair-lang",
   "engines": {
     "vscode": "^1.90.0"
   },
-  "categories": ["Programming Languages"],
+  "categories": ["Programming Languages", "Formatters"],
   
+  "main": "./formatter.js",
+  
+  "activationEvents": [
+    "onLanguage:djazair"
+  ],
+
   "contributes": {
     "languages": [
       {
@@ -32,6 +38,36 @@
         "language": "djazair",
         "path": "./snippets/djazair.json"
       }
-    ]
+    ],
+
+    "configuration": {
+      "title": "Djazair",
+      "properties": {
+        "djazair.formatting.indentSize": {
+          "type": "number",
+          "default": 4,
+          "description": "عدد المسافات للمسافة البادئة"
+        },
+        "djazair.formatting.useTabs": {
+          "type": "boolean",
+          "default": false,
+          "description": "استخدام tabs بدلاً من spaces"
+        },
+        "djazair.formatting.formatOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "تنسيق الكود تلقائياً عند الحفظ"
+        }
+      }
+    }
+  },
+
+  "scripts": {
+    "test": "node test/runTest.js"
+  },
+
+  "devDependencies": {
+    "@types/vscode": "^1.90.0",
+    "@types/node": "^16.x"
   }
 }

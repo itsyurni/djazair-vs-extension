@@ -1,0 +1,30 @@
+{
+  // إعدادات لغة Djazair
+  "[djazair]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.defaultFormatter": "djazair-lang.djazair"
+  },
+
+  // إعدادات الـ formatter
+  "djazair.formatting.indentSize": 4,
+  "djazair.formatting.useTabs": false,
+  "djazair.formatting.formatOnSave": true,
+
+  // تفعيل IntelliSense
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": false
+  },
+
+  // تفعيل الإكمال التلقائي
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.acceptSuggestionOnEnter": "on",
+
+  // تحسين تجربة الكتابة
+  "editor.wordBasedSuggestions": "matchingDocuments",
+  "editor.snippetSuggestions": "top"
+}

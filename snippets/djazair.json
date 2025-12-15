@@ -3,57 +3,355 @@
     "prefix": "fn",
     "body": [
       "fn ${1:name}(${2:args}):",
-      "\t${3:// body}",
+      "\t${3:# body}",
       "end"
-    ]
+    ],
+    "description": "إنشاء دالة جديدة"
   },
+  
+  "Function with Return": {
+    "prefix": "fnr",
+    "body": [
+      "fn ${1:name}(${2:args}):",
+      "\t${3:# body}",
+      "\treturn ${4:value}",
+      "end"
+    ],
+    "description": "دالة مع قيمة إرجاع"
+  },
+
+  "Async Function": {
+    "prefix": "fna",
+    "body": [
+      "async fn ${1:name}(${2:args}):",
+      "\t${3:# async body}",
+      "\treturn ${4:value}",
+      "end"
+    ],
+    "description": "دالة غير متزامنة"
+  },
+
+  "Arrow Function": {
+    "prefix": "af",
+    "body": [
+      "(${1:args}) => ${2:expression}"
+    ],
+    "description": "دالة سهمية"
+  },
+
   "Class": {
     "prefix": "class",
     "body": [
       "class ${1:ClassName}:",
       "\tfn init(${2:args}):",
-      "\t\t${3:// init body}",
+      "\t\tself.${3:property} = ${4:value}",
+      "\tend",
+      "\t",
+      "\tfn ${5:method}(self, ${6:args}):",
+      "\t\t${7:# method body}",
       "\tend",
       "end"
-    ]
+    ],
+    "description": "إنشاء صنف جديد"
   },
-  "If Elif Else": {
+
+  "Class with Constructor": {
+    "prefix": "classc",
+    "body": [
+      "class ${1:ClassName}:",
+      "\tprivate var ${2:field}",
+      "\t",
+      "\tfn init(${3:args}):",
+      "\t\tself.${2:field} = ${3:args}",
+      "\tend",
+      "\t",
+      "\tfn get${2/(.*)/${1:/capitalize}/}():",
+      "\t\treturn self.${2:field}",
+      "\tend",
+      "\t",
+      "\tfn set${2/(.*)/${1:/capitalize}/}(value):",
+      "\t\tself.${2:field} = value",
+      "\tend",
+      "end"
+    ],
+    "description": "صنف مع getters و setters"
+  },
+
+  "Enum": {
+    "prefix": "enum",
+    "body": [
+      "enum ${1:EnumName}:",
+      "\t${2:VALUE1}",
+      "\t${3:VALUE2}",
+      "\t${4:VALUE3}",
+      "end"
+    ],
+    "description": "تعريف enum"
+  },
+
+  "If Statement": {
     "prefix": "if",
     "body": [
       "if ${1:condition}:",
-      "\t${2:body}",
-      "elif ${3:condition}:",
-      "\t${4:body}",
-      "else:",
-      "\t${5:body}",
+      "\t${2:# code}",
       "end"
-    ]
+    ],
+    "description": "جملة if بسيطة"
   },
+
+  "If Else": {
+    "prefix": "ife",
+    "body": [
+      "if ${1:condition}:",
+      "\t${2:# code}",
+      "else:",
+      "\t${3:# code}",
+      "end"
+    ],
+    "description": "if else"
+  },
+
+  "If Elif Else": {
+    "prefix": "ifel",
+    "body": [
+      "if ${1:condition}:",
+      "\t${2:# code}",
+      "elif ${3:condition}:",
+      "\t${4:# code}",
+      "else:",
+      "\t${5:# code}",
+      "end"
+    ],
+    "description": "if elif else كامل"
+  },
+
   "Match Case": {
     "prefix": "match",
     "body": [
       "match ${1:value}:",
-      "\tcase ${2:Option1}:",
-      "\t\t${3:// code}",
-      "\tcase ${4:Option2}:",
-      "\t\t${5:// code}",
+      "\tcase ${2:pattern1}:",
+      "\t\t${3:# code}",
+      "\tcase ${4:pattern2}:",
+      "\t\t${5:# code}",
       "\tdefault:",
-      "\t\t${6:// default}",
+      "\t\t${6:# default code}",
       "end"
-    ]
+    ],
+    "description": "جملة match case"
   },
+
   "For Loop": {
     "prefix": "for",
     "body": [
       "for ${1:item} in ${2:iterable}:",
-      "\t${3:// body}",
+      "\t${3:# body}",
       "end"
-    ]
+    ],
+    "description": "حلقة for"
   },
+
+  "For Range": {
+    "prefix": "forr",
+    "body": [
+      "for ${1:i} in range(${2:start}, ${3:end}):",
+      "\t${4:# body}",
+      "end"
+    ],
+    "description": "حلقة for مع range"
+  },
+
+  "For Enumerate": {
+    "prefix": "fore",
+    "body": [
+      "for ${1:index}, ${2:item} in enumerate(${3:iterable}):",
+      "\t${4:# body}",
+      "end"
+    ],
+    "description": "حلقة for مع enumerate"
+  },
+
+  "While Loop": {
+    "prefix": "while",
+    "body": [
+      "while ${1:condition}:",
+      "\t${2:# body}",
+      "end"
+    ],
+    "description": "حلقة while"
+  },
+
+  "Do While": {
+    "prefix": "do",
+    "body": [
+      "do:",
+      "\t${1:# body}",
+      "while ${2:condition}",
+      "end"
+    ],
+    "description": "حلقة do while"
+  },
+
+  "Try Catch": {
+    "prefix": "try",
+    "body": [
+      "try:",
+      "\t${1:# code}",
+      "catch ${2:Exception} as ${3:e}:",
+      "\t${4:# handle error}",
+      "end"
+    ],
+    "description": "معالجة الأخطاء"
+  },
+
+  "Try Catch Finally": {
+    "prefix": "tryf",
+    "body": [
+      "try:",
+      "\t${1:# code}",
+      "catch ${2:Exception} as ${3:e}:",
+      "\t${4:# handle error}",
+      "finally:",
+      "\t${5:# cleanup}",
+      "end"
+    ],
+    "description": "try catch finally"
+  },
+
   "Variable": {
     "prefix": "var",
     "body": [
       "var ${1:name} = ${2:value}"
-    ]
+    ],
+    "description": "متغير"
+  },
+
+  "Constant": {
+    "prefix": "const",
+    "body": [
+      "const ${1:NAME} = ${2:value}"
+    ],
+    "description": "ثابت"
+  },
+
+  "Import": {
+    "prefix": "imp",
+    "body": [
+      "import \"${1:module}\""
+    ],
+    "description": "استيراد وحدة"
+  },
+
+  "Import As": {
+    "prefix": "impa",
+    "body": [
+      "import \"${1:module}\" as ${2:alias}"
+    ],
+    "description": "استيراد مع اسم مستعار"
+  },
+
+  "Import From": {
+    "prefix": "impf",
+    "body": [
+      "from \"${1:module}\" import ${2:item}"
+    ],
+    "description": "استيراد عنصر محدد"
+  },
+
+  "Print": {
+    "prefix": "pr",
+    "body": [
+      "print(${1:value})"
+    ],
+    "description": "طباعة قيمة"
+  },
+
+  "Print Line": {
+    "prefix": "prl",
+    "body": [
+      "println(${1:value})"
+    ],
+    "description": "طباعة سطر"
+  },
+
+  "Comment Block": {
+    "prefix": "cmt",
+    "body": [
+      "#*",
+      " * ${1:description}",
+      " *#"
+    ],
+    "description": "تعليق متعدد الأسطر"
+  },
+
+  "Doc Comment": {
+    "prefix": "doc",
+    "body": [
+      "#**",
+      " * ${1:description}",
+      " * @param ${2:name} ${3:description}",
+      " * @return ${4:description}",
+      " *#"
+    ],
+    "description": "تعليق توثيقي"
+  },
+
+  "Lambda": {
+    "prefix": "lam",
+    "body": [
+      "fn(${1:args}) => ${2:expression}"
+    ],
+    "description": "دالة lambda"
+  },
+
+  "List": {
+    "prefix": "list",
+    "body": [
+      "var ${1:list} = [${2:elements}]"
+    ],
+    "description": "قائمة"
+  },
+
+  "Dictionary": {
+    "prefix": "dict",
+    "body": [
+      "var ${1:dict} = {",
+      "\t\"${2:key}\": ${3:value}",
+      "}"
+    ],
+    "description": "قاموس"
+  },
+
+  "Ternary": {
+    "prefix": "tern",
+    "body": [
+      "${1:value} if ${2:condition} else ${3:alternative}"
+    ],
+    "description": "عملية ثلاثية"
+  },
+
+  "Main Function": {
+    "prefix": "main",
+    "body": [
+      "fn main():",
+      "\t${1:# main code}",
+      "end"
+    ],
+    "description": "الدالة الرئيسية"
+  },
+
+  "TODO": {
+    "prefix": "todo",
+    "body": [
+      "# TODO: ${1:task description}"
+    ],
+    "description": "تعليق TODO"
+  },
+
+  "FIXME": {
+    "prefix": "fixme",
+    "body": [
+      "# FIXME: ${1:issue description}"
+    ],
+    "description": "تعليق FIXME"
   }
 }

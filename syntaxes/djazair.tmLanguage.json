@@ -6,18 +6,35 @@
     { "include": "#strings" },
     { "include": "#numbers" },
     { "include": "#keywords" },
+    { "include": "#builtinFunctions" },
+    { "include": "#builtinTypes" },
     { "include": "#operators" },
     { "include": "#functions" },
     { "include": "#classes" },
     { "include": "#enum_values" },
     { "include": "#objectAccess" },
     { "include": "#importPaths" },
-    { "include": "#class_fields" }
+    { "include": "#class_fields" },
+    { "include": "#constants" },
+    { "include": "#decorators" },
+    { "include": "#annotations" }
   ],
 
   "repository": {
     "comments": {
       "patterns": [
+        {
+          "name": "comment.block.documentation.djazair",
+          "begin": "#\\*\\*",
+          "end": "\\*#",
+          "patterns": [
+            {
+              "name": "keyword.other.documentation.djazair",
+              "match": "@(param|return|throws|example|author|version|deprecated)"
+            },
+            { "match": "[\\s\\S]+?", "name": "comment.block.content.djazair" }
+          ]
+        },
         {
           "name": "comment.block.djazair",
           "begin": "#\\*",
@@ -25,6 +42,10 @@
           "patterns": [
             { "match": "[\\s\\S]+?", "name": "comment.block.content.djazair" }
           ]
+        },
+        {
+          "name": "comment.line.todo.djazair",
+          "match": "#\\s*(TODO|FIXME|NOTE|HACK|XXX):.*$"
         },
         {
           "name": "comment.line.djazair",
@@ -43,6 +64,10 @@
             {
               "name": "constant.character.escape.djazair",
               "match": "\\\\."
+            },
+            {
+              "name": "constant.character.format.djazair",
+              "match": "\\{[^}]*\\}"
             }
           ]
         }
@@ -58,7 +83,22 @@
           "patterns": [
             {
               "name": "constant.character.escape.djazair",
-              "match": "\\\\(n|t|r|\"|')"
+              "match": "\\\\(n|t|r|\"|'|\\\\|0|x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4})"
+            },
+            {
+              "name": "constant.character.format.djazair",
+              "match": "\\{[^}]*\\}"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.djazair",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.djazair",
+              "match": "\\\\(n|t|r|\"|'|\\\\)"
             }
           ]
         }
@@ -69,19 +109,23 @@
       "patterns": [
         {
           "name": "constant.numeric.hex.djazair",
-          "match": "\\b0x[0-9A-Fa-f]+\\b"
+          "match": "\\b0x[0-9A-Fa-f]+(_[0-9A-Fa-f]+)*\\b"
         },
         {
           "name": "constant.numeric.binary.djazair",
-          "match": "\\b0b[01]+\\b"
+          "match": "\\b0b[01]+(_[01]+)*\\b"
+        },
+        {
+          "name": "constant.numeric.octal.djazair",
+          "match": "\\b0o[0-7]+(_[0-7]+)*\\b"
         },
         {
           "name": "constant.numeric.float.djazair",
-          "match": "\\b[-+]?[0-9]*\\.[0-9]+([eE][-+]?[0-9]+)?\\b"
+          "match": "\\b[-+]?[0-9]+(_[0-9]+)*\\.[0-9]+(_[0-9]+)*([eE][-+]?[0-9]+)?[fF]?\\b"
         },
         {
           "name": "constant.numeric.integer.djazair",
-          "match": "\\b[-+]?[0-9]+\\b"
+          "match": "\\b[-+]?[0-9]+(_[0-9]+)*[lL]?\\b"
         }
       ]
     },
@@ -89,8 +133,70 @@
     "keywords": {
       "patterns": [
         {
-          "name": "keyword.control.djazair",
-          "match": "\\b(var|const|try|catch|throw|import|as|fn|class|super|extends|new|return|if|elif|else|for|in|end|while|do|True|False|Null|break|continue|self|match|enum|default|case|delete|is|not|and|or)\\b"
+          "name": "keyword.control.flow.djazair",
+          "match": "\\b(return|break|continue|yield|await)\\b"
+        },
+        {
+          "name": "keyword.control.conditional.djazair",
+          "match": "\\b(if|elif|else|match|case|default)\\b"
+        },
+        {
+          "name": "keyword.control.loop.djazair",
+          "match": "\\b(for|in|while|do)\\b"
+        },
+        {
+          "name": "keyword.control.exception.djazair",
+          "match": "\\b(try|catch|throw|finally)\\b"
+        },
+        {
+          "name": "keyword.control.import.djazair",
+          "match": "\\b(import|as|from|export)\\b"
+        },
+        {
+          "name": "storage.type.djazair",
+          "match": "\\b(var|const|let)\\b"
+        },
+        {
+          "name": "storage.modifier.djazair",
+          "match": "\\b(public|private|protected|static|readonly)\\b"
+        },
+        {
+          "name": "keyword.declaration.djazair",
+          "match": "\\b(fn|class|enum|interface|trait|struct)\\b"
+        },
+        {
+          "name": "keyword.control.end.djazair",
+          "match": "\\b(end)\\b"
+        },
+        {
+          "name": "keyword.other.djazair",
+          "match": "\\b(extends|implements|super|self|this|new|typeof|instanceof)\\b"
+        },
+        {
+          "name": "keyword.operator.logical.djazair",
+          "match": "\\b(and|or|not|is)\\b"
+        },
+        {
+          "name": "constant.language.djazair",
+          "match": "\\b(True|False|Null|None|undefined)\\b"
+        }
+      ]
+    },
+
+    "builtinFunctions": {
+      "patterns": [
+        {
+          "name": "support.function.builtin.djazair",
+          "match": "\\b(print|println|input|len|range|type|str|int|float|bool|list|dict|set|tuple|map|filter|reduce|zip|enumerate|sorted|reversed|sum|min|max|abs|round|pow|sqrt|open|read|write|close|exit|help)\\b"
+        }
+      ]
+    },
+
+    "builtinTypes": {
+      "patterns": [
+        {
+          "name": "support.type.builtin.djazair",
+          "match": "\\b(String|Int|Float|Bool|List|Dict|Set|Tuple|Array|Object|Any|Void|Number|Char)\\b"
         }
       ]
     },
@@ -98,8 +204,24 @@
     "operators": {
       "patterns": [
         {
-          "name": "keyword.operator.djazair",
-          "match": "\\+=|-=|\\*=|/=|==|!=|<=|>=|=>|=|\\+|-|\\*|/|\\?|:|\\."
+          "name": "keyword.operator.assignment.djazair",
+          "match": "\\+=|-=|\\*=|/=|%=|\\*\\*=|//=|&=|\\|=|\\^=|>>=|<<=|="
+        },
+        {
+          "name": "keyword.operator.comparison.djazair",
+          "match": "==|!=|<=|>=|<|>"
+        },
+        {
+          "name": "keyword.operator.arithmetic.djazair",
+          "match": "\\+|-|\\*|/|%|\\*\\*|//"
+        },
+        {
+          "name": "keyword.operator.bitwise.djazair",
+          "match": "&|\\||\\^|~|<<|>>"
+        },
+        {
+          "name": "keyword.operator.other.djazair",
+          "match": "=>|\\?\\.|\\?\\?|::|\\.|\\?|:"
         }
       ]
     },
@@ -107,7 +229,11 @@
     "functions": {
       "patterns": [
         {
-          "name": "entity.name.function.djazair",
+          "name": "entity.name.function.declaration.djazair",
+          "match": "(?<=fn\\s+)[A-Za-z_][A-Za-z0-9_]*"
+        },
+        {
+          "name": "entity.name.function.call.djazair",
           "match": "\\b[A-Za-z_][A-Za-z0-9_]*(?=\\()"
         }
       ]
@@ -117,7 +243,11 @@
       "patterns": [
         {
           "name": "entity.name.class.djazair",
-          "match": "(?<=class\\s)[A-Za-z_][A-Za-z0-9_]*"
+          "match": "(?<=class\\s+)[A-Z][A-Za-z0-9_]*"
+        },
+        {
+          "name": "entity.name.type.djazair",
+          "match": "\\b[A-Z][A-Za-z0-9_]*\\b"
         }
       ]
     },
@@ -126,7 +256,7 @@
       "patterns": [
         {
           "name": "variable.member.djazair",
-          "match": "(?<=\\b(private|public|var)\\s+)[A-Za-z_][A-Za-z0-9_]*"
+          "match": "(?<=\\b(private|public|protected|var|const|let)\\s+)[A-Za-z_][A-Za-z0-9_]*"
         }
       ]
     },
@@ -135,11 +265,38 @@
       "patterns": [
         {
           "name": "constant.enum.djazair",
-          "match": "(?<=enum\\s+[A-Za-z_][A-Za-z0-9_]*:\\s*)[A-Za-z_][A-Za-z0-9_]*"
+          "match": "(?<=enum\\s+[A-Za-z_][A-Za-z0-9_]*:\\s*)[A-Z_][A-Z0-9_]*"
         },
         {
           "name": "constant.enum.djazair",
-          "match": "(?<=case\\s)[A-Za-z_][A-Za-z0-9_]*"
+          "match": "(?<=case\\s+)[A-Z_][A-Z0-9_]*"
+        }
+      ]
+    },
+
+    "constants": {
+      "patterns": [
+        {
+          "name": "variable.other.constant.djazair",
+          "match": "\\b[A-Z_][A-Z0-9_]*\\b"
+        }
+      ]
+    },
+
+    "decorators": {
+      "patterns": [
+        {
+          "name": "entity.name.function.decorator.djazair",
+          "match": "@[A-Za-z_][A-Za-z0-9_]*"
+        }
+      ]
+    },
+
+    "annotations": {
+      "patterns": [
+        {
+          "name": "storage.type.annotation.djazair",
+          "match": ":[A-Za-z_][A-Za-z0-9_]*"
         }
       ]
     },
@@ -157,7 +314,11 @@
       "patterns": [
         {
           "name": "string.quoted.import-path.djazair",
-          "match": "(?<=import\\s)\"[^\"]+\""
+          "match": "(?<=import\\s+)\"[^\"]+\""
+        },
+        {
+          "name": "string.quoted.import-path.djazair",
+          "match": "(?<=from\\s+)\"[^\"]+\""
         }
       ]
     }
